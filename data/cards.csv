@@ -1,0 +1,588 @@
+Name,Set,Types,Cost
+Cellar,Base,Action,2
+Chapel,Base,Action,2
+Moat,Base,Action - Reaction,2
+Chancellor,"Base, 1E",Action,3
+Harbinger,"Base, 2E",Action,3
+Merchant,"Base, 2E",Action,3
+Vassal,"Base, 2E",Action,3
+Village,Base,Action,3
+Woodcutter,"Base, 1E",Action,3
+Workshop,Base,Action,3
+Bureaucrat,Base,Action - Attack,4
+Feast,"Base, 1E",Action,4
+Gardens,Base,Victory,4
+Militia,Base,Action - Attack,4
+Moneylender,Base,Action,4
+Poacher,"Base, 2E",Action,4
+Remodel,Base,Action,4
+Smithy,Base,Action,4
+Spy,"Base, 1E",Action - Attack,4
+Thief,"Base, 1E",Action - Attack,4
+Throne Room,Base,Action,4
+Bandit,"Base, 2E",Action - Attack,5
+Council Room,Base,Action,5
+Festival,Base,Action,5
+Laboratory,Base,Action,5
+Library,Base,Action,5
+Market,Base,Action,5
+Mine,Base,Action,5
+Sentry,"Base, 2E",Action,5
+Witch,Base,Action - Attack,5
+Adventurer,"Base, 1E",Action,6
+Artisan,"Base, 2E",Action,6
+Copper,Base,Treasure,0
+Silver,Base,Treasure,3
+Gold,Base,Treasure,6
+Estate,Base,Victory,2
+Duchy,Base,Victory,5
+Province,Base,Victory,8
+Curse,Base,Curse,0
+Courtyard,Intrigue,Action,2
+Lurker,"Intrigue, 2E",Action,2
+Pawn,Intrigue,Action,2
+Secret Chamber,"Intrigue, 1E",Action - Reaction,2
+Great Hall,"Intrigue, 1E",Action - Victory,3
+Masquerade,Intrigue,Action,3
+Shanty Town,Intrigue,Action,3
+Steward,Intrigue,Action,3
+Swindler,Intrigue,Action - Attack,3
+Wishing Well,Intrigue,Action,3
+Baron,Intrigue,Action,4
+Bridge,Intrigue,Action,4
+Conspirator,Intrigue,Action,4
+Coppersmith,"Intrigue, 1E",Action,4
+Diplomat,"Intrigue, 2E",Action - Reaction,4
+Ironworks,Intrigue,Action,4
+Mill,"Intrigue, 2E",Action - Victory,4
+Mining Village,Intrigue,Action,4
+Scout,"Intrigue, 1E",Action,4
+Secret Passage,"Intrigue, 2E",Action,4
+Courtier,"Intrigue, 2E",Action,5
+Duke,Intrigue,Victory,5
+Minion,Intrigue,Action - Attack,5
+Patrol,"Intrigue, 2E",Action,5
+Replace,"Intrigue, 2E",Action - Attack,5
+Saboteur,"Intrigue, 1E",Action - Attack,5
+Torturer,Intrigue,Action - Attack,5
+Trading Post,Intrigue,Action,5
+Tribute,"Intrigue, 1E",Action,5
+Upgrade,Intrigue,Action,5
+Harem,Intrigue,Treasure - Victory,6
+Nobles,Intrigue,Action - Victory,6
+Embargo,Seaside,Action,2
+Haven,Seaside,Action - Duration,2
+Lighthouse,Seaside,Action - Duration,2
+Native Village,Seaside,Action,2
+Pearl Diver,Seaside,Action,2
+Ambassador,Seaside,Action - Attack,3
+Fishing Village,Seaside,Action - Duration,3
+Lookout,Seaside,Action,3
+Smugglers,Seaside,Action,3
+Warehouse,Seaside,Action,3
+Caravan,Seaside,Action - Duration,4
+Cutpurse,Seaside,Action - Attack,4
+Island,Seaside,Action - Victory,4
+Navigator,Seaside,Action,4
+Pirate Ship,Seaside,Action - Attack,4
+Salvager,Seaside,Action,4
+Sea Hag,Seaside,Action - Attack,4
+Treasure Map,Seaside,Action,4
+Bazaar,Seaside,Action,5
+Explorer,Seaside,Action,5
+Ghost Ship,Seaside,Action - Attack,5
+Merchant Ship,Seaside,Action - Duration,5
+Outpost,Seaside,Action - Duration,5
+Tactician,Seaside,Action - Duration,5
+Treasury,Seaside,Action,5
+Wharf,Seaside,Action - Duration,5
+Transmute,Alchemy,Action,P
+Vineyard,Alchemy,Victory,P
+Herbalist,Alchemy,Action,2
+Apothecary,Alchemy,Action,2P
+Scrying Pool,Alchemy,Action - Attack,2P
+University,Alchemy,Action,2P
+Alchemist,Alchemy,Action,3P
+Familiar,Alchemy,Action - Attack,3P
+Philosopher's Stone,Alchemy,Treasure,3P
+Golem,Alchemy,Action,4P
+Apprentice,Alchemy,Action,5
+Possession,Alchemy,Action,6P
+Potion,Alchemy,Treasure,4
+Loan,Prosperity,Treasure,3
+Trade Route,Prosperity,Action,3
+Watchtower,Prosperity,Action - Reaction,3
+Bishop,Prosperity,Action,4
+Monument,Prosperity,Action,4
+Quarry,Prosperity,Treasure,4
+Talisman,Prosperity,Treasure,4
+Worker's Village,Prosperity,Action,4
+City,Prosperity,Action,5
+Contraband,Prosperity,Treasure,5
+Counting House,Prosperity,Action,5
+Mint,Prosperity,Action,5
+Mountebank,Prosperity,Action - Attack,5
+Rabble,Prosperity,Action - Attack,5
+Royal Seal,Prosperity,Treasure,5
+Vault,Prosperity,Action,5
+Venture,Prosperity,Treasure,5
+Goons,Prosperity,Action - Attack,6
+Grand Market,Prosperity,Action,6*
+Hoard,Prosperity,Treasure,6
+Bank,Prosperity,Treasure,6
+Expand,Prosperity,Action,6
+Forge,Prosperity,Action,6
+King's Court,Prosperity,Action,6
+Peddler,Prosperity,Action,8*
+Platinum,Prosperity,Treasure,9
+Colony,Prosperity,Victory,11
+Hamlet,Cornucopia,Action,2
+Fortune Teller,Cornucopia,Action - Attack,3
+Menagerie,Cornucopia,Action,3
+Farming Village,Cornucopia,Action,4
+Horse Traders,Cornucopia,Action - Reaction,4
+Remake,Cornucopia,Action,4
+Tournament,Cornucopia,Action,4
+Young Witch,Cornucopia,Action - Attack,4
+Harvest,Cornucopia,Action,5
+Horn of Plenty,Cornucopia,Treasure,5
+Hunting Party,Cornucopia,Action,5
+Jester,Cornucopia,Action - Attack,5
+Fairgrounds,Cornucopia,Victory,6
+Bag of Gold,Cornucopia,Action - Prize,0*
+Diadem,Cornucopia,Treasure - Prize,0*
+Followers,Cornucopia,Action - Attack - Prize,0*
+Princess,Cornucopia,Action - Prize,0*
+Trusty Steed,Cornucopia,Action - Prize,0*
+Crossroads,Hinterlands,Action,2
+Duchess,Hinterlands,Action,2
+Fool's Gold,Hinterlands,Treasure - Reaction,2
+Develop,Hinterlands,Action,3
+Oasis,Hinterlands,Action,3
+Oracle,Hinterlands,Action - Attack,3
+Scheme,Hinterlands,Action,3
+Tunnel,Hinterlands,Victory - Reaction,3
+Jack of All Trades,Hinterlands,Action,4
+Noble Brigand,Hinterlands,Action - Attack,4
+Nomad Camp,Hinterlands,Action,4
+Silk Road,Hinterlands,Victory,4
+Spice Merchant,Hinterlands,Action,4
+Trader,Hinterlands,Action - Reaction,4
+Cache,Hinterlands,Treasure,5
+Cartographer,Hinterlands,Action,5
+Embassy,Hinterlands,Action,5
+Haggler,Hinterlands,Action,5
+Highway,Hinterlands,Action,5
+Ill-Gotten Gains,Hinterlands,Treasure,5
+Inn,Hinterlands,Action,5
+Mandarin,Hinterlands,Action,5
+Margrave,Hinterlands,Action - Attack,5
+Stables,Hinterlands,Action,5
+Border Village,Hinterlands,Action,6
+Farmland,Hinterlands,Victory,6
+Poor House,Dark Ages,Action,1
+Beggar,Dark Ages,Action - Reaction,2
+Squire,Dark Ages,Action,2
+Vagrant,Dark Ages,Action,2
+Forager,Dark Ages,Action,3
+Hermit,Dark Ages,Action,3
+Market Square,Dark Ages,Action - Reaction,3
+Sage,Dark Ages,Action,3
+Storeroom,Dark Ages,Action,3
+Urchin,Dark Ages,Action - Attack,3
+Armory,Dark Ages,Action,4
+Death Cart,Dark Ages,Action - Looter,4
+Feodum,Dark Ages,Victory,4
+Fortress,Dark Ages,Action,4
+Ironmonger,Dark Ages,Action,4
+Marauder,Dark Ages,Action - Attack - Looter,4
+Procession,Dark Ages,Action,4
+Rats,Dark Ages,Action,4
+Scavenger,Dark Ages,Action,4
+Wandering Minstrel,Dark Ages,Action,4
+Band of Misfits,Dark Ages,Action - Command,5
+Bandit Camp,Dark Ages,Action,5
+Catacombs,Dark Ages,Action,5
+Count,Dark Ages,Action,5
+Counterfeit,Dark Ages,Treasure,5
+Cultist,Dark Ages,Action - Attack - Looter,5
+Graverobber,Dark Ages,Action,5
+Junk Dealer,Dark Ages,Action,5
+Mystic,Dark Ages,Action,5
+Pillage,Dark Ages,Action - Attack,5
+Rebuild,Dark Ages,Action,5
+Rogue,Dark Ages,Action - Attack,5
+Altar,Dark Ages,Action,6
+Hunting Grounds,Dark Ages,Action,6
+Abandoned Mine,Dark Ages,Action - Ruins,0
+Ruined Library,Dark Ages,Action - Ruins,0
+Ruined Market,Dark Ages,Action - Ruins,0
+Ruined Village,Dark Ages,Action - Ruins,0
+Survivors,Dark Ages,Action - Ruins,0
+Dame Anna,Dark Ages,Action - Attack - Knight,5
+Dame Josephine,Dark Ages,Action - Attack - Victory - Knight,5
+Dame Molly,Dark Ages,Action - Attack - Knight,5
+Dame Natalie,Dark Ages,Action - Attack - Knight,5
+Dame Sylvia,Dark Ages,Action - Attack - Knight,5
+Sir Bailey,Dark Ages,Action - Attack - Knight,5
+Sir Destry,Dark Ages,Action - Attack - Knight,5
+Sir Martin,Dark Ages,Action - Attack - Knight,4
+Sir Michael,Dark Ages,Action - Attack - Knight,5
+Sir Vander,Dark Ages,Action - Attack - Knight,5
+Madman,Dark Ages,Action,0*
+Mercenary,Dark Ages,Action - Attack,0*
+Spoils,Dark Ages,Treasure,0*
+Hovel,Dark Ages,Reaction - Shelter,1
+Necropolis,Dark Ages,Action - Shelter,1
+Overgrown Estate,Dark Ages,Victory - Shelter,1
+Candlestick Maker,Guilds,Action,2
+Stonemason,Guilds,Action,2+
+Doctor,Guilds,Action,3+
+Masterpiece,Guilds,Treasure,3+
+Advisor,Guilds,Action,4
+Herald,Guilds,Action,4+
+Plaza,Guilds,Action,4
+Taxman,Guilds,Action - Attack,4
+Baker,Guilds,Action,5
+Butcher,Guilds,Action,5
+Journeyman,Guilds,Action,5
+Merchant Guild,Guilds,Action,5
+Soothsayer,Guilds,Action - Attack,5
+Coin of the Realm,Adventures,Treasure - Reserve,2
+Page,Adventures,Action - Traveller,2
+Peasant,Adventures,Action - Traveller,2
+Ratcatcher,Adventures,Action - Reserve,2
+Raze,Adventures,Action,2
+Amulet,Adventures,Action - Duration,3
+Caravan Guard,Adventures,Action - Duration - Reaction,3
+Dungeon,Adventures,Action - Duration,3
+Gear,Adventures,Action - Duration,3
+Guide,Adventures,Action - Reserve,3
+Duplicate,Adventures,Action - Reserve,4
+Magpie,Adventures,Action,4
+Messenger,Adventures,Action,4
+Miser,Adventures,Action,4
+Port,Adventures,Action,4
+Ranger,Adventures,Action,4
+Transmogrify,Adventures,Action - Reserve,4
+Artificer,Adventures,Action,5
+Bridge Troll,Adventures,Action - Attack - Duration,5
+Distant Lands,Adventures,Action - Reserve - Victory,5
+Giant,Adventures,Action - Attack,5
+Haunted Woods,Adventures,Action - Attack - Duration,5
+Lost City,Adventures,Action,5
+Relic,Adventures,Treasure - Attack,5
+Royal Carriage,Adventures,Action - Reserve,5
+Storyteller,Adventures,Action,5
+Swamp Hag,Adventures,Action - Attack - Duration,5
+Treasure Trove,Adventures,Treasure,5
+Wine Merchant,Adventures,Action - Reserve,5
+Hireling,Adventures,Action - Duration,6
+Alms,Adventures,Event,0
+Borrow,Adventures,Event,0
+Quest,Adventures,Event,0
+Save,Adventures,Event,1
+Scouting Party,Adventures,Event,2
+Travelling Fair,Adventures,Event,2
+Bonfire,Adventures,Event,3
+Expedition,Adventures,Event,3
+Ferry,Adventures,Event,3
+Plan,Adventures,Event,3
+Mission,Adventures,Event,4
+Pilgrimage,Adventures,Event,4
+Ball,Adventures,Event,5
+Raid,Adventures,Event,5
+Seaway,Adventures,Event,5
+Trade,Adventures,Event,5
+Lost Arts,Adventures,Event,6
+Training,Adventures,Event,6
+Inheritance,Adventures,Event,6
+Pathfinding,Adventures,Event,8
+Soldier,Adventures,Action - Attack - Traveller,3*
+Fugitive,Adventures,Action - Traveller,4*
+Disciple,Adventures,Action - Traveller,5*
+Teacher,Adventures,Action - Reserve,6*
+Treasure Hunter,Adventures,Action - Traveller,3*
+Warrior,Adventures,Action - Attack - Traveller,4*
+Hero,Adventures,Action - Traveller,5*
+Champion,Adventures,Action - Duration,6*
+Engineer,Empires,Action,4D
+City Quarter,Empires,Action,8D
+Royal Blacksmith,Empires,Action,8D
+Overlord,Empires,Action - Command,8D
+Encampment,Empires,Action,2
+Patrician,Empires,Action,2
+Settlers,Empires,Action,2
+Catapult,Empires,Action - Attack,3
+Chariot Race,Empires,Action,3
+Enchantress,Empires,Action - Attack - Duration,3
+Farmers' Market,Empires,Action - Gathering,3
+Gladiator,Empires,Action,3
+Rocks,Empires,Treasure,4
+Sacrifice,Empires,Action,4
+Temple,Empires,Action - Gathering,4
+Villa,Empires,Action,4
+Archive,Empires,Action - Duration,5
+Bustling Village,Empires,Action,5
+Capital,Empires,Treasure,5
+Charm,Empires,Treasure,5
+Crown,Empires,Action - Treasure,5
+Emporium,Empires,Action,5
+Forum,Empires,Action,5
+Groundskeeper,Empires,Action,5
+Legionary,Empires,Action - Attack,5
+Plunder,Empires,Treasure,5
+Wild Hunt,Empires,Action - Gathering,5
+Fortune,Empires,Treasure,88D
+Humble Castle,Empires,Treasure - Victory - Castle,3
+Crumbling Castle,Empires,Victory - Castle,4
+Small Castle,Empires,Action - Victory - Castle,5
+Haunted Castle,Empires,Victory - Castle,6
+Opulent Castle,Empires,Action - Victory - Castle,6
+Sprawling Castle,Empires,Victory - Castle,8
+Grand Castle,Empires,Victory - Castle,9
+King's Castle,Empires,Victory - Castle,10
+Triumph,Empires,Event,5D
+Annex,Empires,Event,8D
+Donate,Empires,Event,8D
+Advance,Empires,Event,0
+Delve,Empires,Event,2
+Tax,Empires,Event,2
+Banquet,Empires,Event,3
+Ritual,Empires,Event,4
+Salt the Earth,Empires,Event,4
+Wedding,Empires,Event,43D
+Windfall,Empires,Event,5
+Conquest,Empires,Event,6
+Dominate,Empires,Event,14
+Aqueduct,Empires,Landmark,
+Arena,Empires,Landmark,
+Bandit Fort,Empires,Landmark,
+Basilica,Empires,Landmark,
+Battlefield,Empires,Landmark,
+Baths,Empires,Landmark,
+Colonnade,Empires,Landmark,
+Defiled Shrine,Empires,Landmark,
+Fountain,Empires,Landmark,
+Keep,Empires,Landmark,
+Labyrinth,Empires,Landmark,
+Mountain Pass,Empires,Landmark,
+Museum,Empires,Landmark,
+Obelisk,Empires,Landmark,
+Orchard,Empires,Landmark,
+Palace,Empires,Landmark,
+Tomb,Empires,Landmark,
+Tower,Empires,Landmark,
+Triumphal Arch,Empires,Landmark,
+Wall,Empires,Landmark,
+Wolf Den,Empires,Landmark,
+Druid,Nocturne,Action - Fate,2
+Faithful Hound,Nocturne,Action - Reaction,2
+Guardian,Nocturne,Night - Duration,2
+Monastery,Nocturne,Night,2
+Pixie,Nocturne,Action - Fate,2
+Tracker,Nocturne,Action - Fate,2
+Changeling,Nocturne,Night,3
+Fool,Nocturne,Action - Fate,3
+Ghost Town,Nocturne,Night - Duration,3
+Leprechaun,Nocturne,Action - Doom,3
+Night Watchman,Nocturne,Night,3
+Secret Cave,Nocturne,Action - Duration,3
+Bard,Nocturne,Action - Fate,4
+Blessed Village,Nocturne,Action - Fate,4
+Cemetery,Nocturne,Victory,4
+Conclave,Nocturne,Action,4
+Devil's Workshop,Nocturne,Night,4
+Exorcist,Nocturne,Night,4
+Necromancer,Nocturne,Action,4
+Shepherd,Nocturne,Action,4
+Skulk,Nocturne,Action - Attack - Doom,4
+Cobbler,Nocturne,Night - Duration,5
+Crypt,Nocturne,Night - Duration,5
+Cursed Village,Nocturne,Action - Doom,5
+Den of Sin,Nocturne,Night - Duration,5
+Idol,Nocturne,Treasure - Attack - Fate,5
+Pooka,Nocturne,Action,5
+Sacred Grove,Nocturne,Action - Fate,5
+Tormentor,Nocturne,Action - Attack - Doom,5
+Tragic Hero,Nocturne,Action,5
+Vampire,Nocturne,Night - Attack - Doom,5
+Werewolf,Nocturne,Action - Night - Attack - Doom,5
+Raider,Nocturne,Night - Duration - Attack,6
+Will-o'-Wisp,Nocturne,Action - Spirit,0*
+Wish,Nocturne,Action,0*
+Bat,Nocturne,Night,2*
+Imp,Nocturne,Action - Spirit,2*
+Ghost,Nocturne,Night - Duration - Spirit,4*
+Zombie Apprentice,Nocturne,Action - Zombie,3
+Zombie Mason,Nocturne,Action - Zombie,3
+Zombie Spy,Nocturne,Action - Zombie,3
+Haunted Mirror,Nocturne,Treasure - Heirloom,0
+Magic Lamp,Nocturne,Treasure - Heirloom,0
+Goat,Nocturne,Treasure - Heirloom,2
+Pasture,Nocturne,Treasure - Victory - Heirloom,2
+Pouch,Nocturne,Treasure - Heirloom,2
+Cursed Gold,Nocturne,Treasure - Heirloom,4
+Lucky Coin,Nocturne,Treasure - Heirloom,4
+The Earth's Gift,Nocturne,Boon,
+The Field's Gift,Nocturne,Boon,
+The Flame's Gift,Nocturne,Boon,
+The Forest's Gift,Nocturne,Boon,
+The Moon's Gift,Nocturne,Boon,
+The Mountain's Gift,Nocturne,Boon,
+The River's Gift,Nocturne,Boon,
+The Sea's Gift,Nocturne,Boon,
+The Sky's Gift,Nocturne,Boon,
+The Sun's Gift,Nocturne,Boon,
+The Swamp's Gift,Nocturne,Boon,
+The Wind's Gift,Nocturne,Boon,
+Bad Omens,Nocturne,Hex,
+Delusion,Nocturne,Hex,
+Envy,Nocturne,Hex,
+Famine,Nocturne,Hex,
+Fear,Nocturne,Hex,
+Greed,Nocturne,Hex,
+Haunting,Nocturne,Hex,
+Locusts,Nocturne,Hex,
+Misery,Nocturne,Hex,
+Plague,Nocturne,Hex,
+Poverty,Nocturne,Hex,
+War,Nocturne,Hex,
+Deluded,Nocturne,State,
+Envious,Nocturne,State,
+Lost in the Woods,Nocturne,State,
+Miserable,Nocturne,State,
+Twice Miserable,Nocturne,State,
+Border Guard,Renaissance,Action,2
+Ducat,Renaissance,Treasure,2
+Lackeys,Renaissance,Action,2
+Acting Troupe,Renaissance,Action,3
+Cargo Ship,Renaissance,Action - Duration,3
+Experiment,Renaissance,Action,3
+Improve,Renaissance,Action,3
+Flag Bearer,Renaissance,Action,4
+Hideout,Renaissance,Action,4
+Inventor,Renaissance,Action,4
+Mountain Village,Renaissance,Action,4
+Patron,Renaissance,Action - Reaction,4
+Priest,Renaissance,Action,4
+Research,Renaissance,Action - Duration,4
+Silk Merchant,Renaissance,Action,4
+Old Witch,Renaissance,Action - Attack,5
+Recruiter,Renaissance,Action,5
+Scepter,Renaissance,Treasure,5
+Scholar,Renaissance,Action,5
+Sculptor,Renaissance,Action,5
+Seer,Renaissance,Action,5
+Spices,Renaissance,Treasure,5
+Swashbuckler,Renaissance,Action,5
+Treasurer,Renaissance,Action,5
+Villain,Renaissance,Action - Attack,5
+Flag,Renaissance,Artifact,
+Horn,Renaissance,Artifact,
+Key,Renaissance,Artifact,
+Lantern,Renaissance,Artifact,
+Treasure Chest,Renaissance,Artifact,
+Cathedral,Renaissance,Project,3
+City Gate,Renaissance,Project,3
+Pageant,Renaissance,Project,3
+Sewers,Renaissance,Project,3
+Star Chart,Renaissance,Project,3
+Exploration,Renaissance,Project,4
+Fair,Renaissance,Project,4
+Silos,Renaissance,Project,4
+Sinister Plot,Renaissance,Project,4
+Academy,Renaissance,Project,5
+Capitalism,Renaissance,Project,5
+Fleet,Renaissance,Project,5
+Guildhall,Renaissance,Project,5
+Piazza,Renaissance,Project,5
+Road Network,Renaissance,Project,5
+Barracks,Renaissance,Project,6
+Crop Rotation,Renaissance,Project,6
+Innovation,Renaissance,Project,6
+Canal,Renaissance,Project,6
+Citadel,Renaissance,Project,8
+Black Cat,Menagerie,Action - Attack - Reaction,2
+Sleigh,Menagerie,Action - Reaction,2
+Supplies,Menagerie,Treasure,2
+Horse,Menagerie,Action,3*
+Camel Train,Menagerie,Action,3
+Goatherd,Menagerie,Action,3
+Scrap,Menagerie,Action,3
+Sheepdog,Menagerie,Action - Reaction,3
+Snowy Village,Menagerie,Action,3
+Stockpile,Menagerie,Treasure,3
+Bounty Hunter,Menagerie,Action,4
+Cardinal,Menagerie,Action - Attack,4
+Cavalry,Menagerie,Action,4
+Groom,Menagerie,Action,4
+Hostelry,Menagerie,Action,4
+Village Green,Menagerie,Action - Duration - Reaction,4
+Fisherman,Menagerie,Action,5*
+Hunting Lodge,Menagerie,Action,5
+Barge,Menagerie,Action - Duration,5
+Coven,Menagerie,Action - Attack,5
+Displace,Menagerie,Action,5
+Falconer,Menagerie,Action - Reaction,5
+Gatekeeper,Menagerie,Action - Duration - Attack,5
+Kiln,Menagerie,Action,5
+Livery,Menagerie,Action,5
+Mastermind,Menagerie,Action - Duration,5
+Paddock,Menagerie,Action,5
+Sanctuary,Menagerie,Action,5
+Destrier,Menagerie,Action,6*
+Wayfarer,Menagerie,Action,6*
+Animal Fair,Menagerie,Action,7*
+Delay,Menagerie,Event,0
+Desperation,Menagerie,Event,0
+Gamble,Menagerie,Event,2
+Pursue,Menagerie,Event,2
+Ride,Menagerie,Event,2
+Toil,Menagerie,Event,2
+Enhance,Menagerie,Event,3
+March,Menagerie,Event,3
+Transport,Menagerie,Event,3
+Banish,Menagerie,Event,4
+Bargain,Menagerie,Event,4
+Invest,Menagerie,Event,4
+Seize the Day,Menagerie,Event,4
+Commerce,Menagerie,Event,5
+Demand,Menagerie,Event,5
+Stampede,Menagerie,Event,5
+Reap,Menagerie,Event,6
+Enclave,Menagerie,Event,8
+Alliance,Menagerie,Event,10
+Populate,Menagerie,Event,10
+Way of the Butterfly,Menagerie,Way,
+Way of the Camel,Menagerie,Way,
+Way of the Chameleon,Menagerie,Way,
+Way of the Frog,Menagerie,Way,
+Way of the Goat,Menagerie,Way,
+Way of the Horse,Menagerie,Way,
+Way of the Mole,Menagerie,Way,
+Way of the Monkey,Menagerie,Way,
+Way of the Mouse,Menagerie,Way,
+Way of the Mule,Menagerie,Way,
+Way of the Otter,Menagerie,Way,
+Way of the Ox,Menagerie,Way,
+Way of the Owl,Menagerie,Way,
+Way of the Pig,Menagerie,Way,
+Way of the Rat,Menagerie,Way,
+Way of the Seal,Menagerie,Way,
+Way of the Sheep,Menagerie,Way,
+Way of the Squirrel,Menagerie,Way,
+Way of the Turtle,Menagerie,Way,
+Way of the Worm,Menagerie,Way,
+Black Market,Promo,Action,3
+Church,Promo,Action - Duration,3
+Dismantle,Promo,Action,4
+Envoy,Promo,Action,4
+Sauna,Promo,Action,4
+Walled Village,Promo,Action,4
+Avanto,Promo,Action,5
+Governor,Promo,Action,5
+Stash,Promo,Treasure,5
+Summon,Promo,Event,5
+Captain,Promo,Action - Duration - Command,6
+Prince,Promo,Action,8
