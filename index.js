@@ -1,4 +1,17 @@
 const AppMain = {
+    template: `
+        <div class="card-list-container">
+            <div class="card-container" v-for="(card, i) in gameCards">
+                <div class="card-name-container">
+                    <div class="card-name">{{ card.Name }}</div>
+                    <div class="card-cost">{{ card.Cost }}</div>
+                    <div class="card-types">{{ card.Types }}</div>
+                </div>
+                <div class="card-set">{{ card.Set }}</div>
+                <div class="card-replace"><button @click="replaceCard(i)">Replace</button></div>
+            </div>
+        </div>
+    `,
     data() {
         return {
             engToDutch: [],
@@ -89,5 +102,24 @@ const AppMain = {
     }
 }
 
-const app = Vue.createApp(AppMain);
+
+const Home = { template: '<div>Home</div>' }
+const About = { template: '<div>About</div>' }
+
+const routes = [
+    { path: '/', component: AppMain },
+    { path: '/about', component: About },
+]
+
+const router = VueRouter.createRouter({
+    history: VueRouter.createWebHashHistory(),
+    routes, // short for `routes: routes`
+})
+
+const app = Vue.createApp({});
+app.use(router);
+
+// const app = Vue.createApp(AppMain);
+// const app = Vue.createApp({});
+// app.component('asdf', AppMain);
 app.mount('#app-main');

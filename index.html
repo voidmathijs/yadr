@@ -16,23 +16,25 @@
 
     <link rel="stylesheet" href="styles.css" />
     <script src="https://unpkg.com/vue@3.0.5"></script>
+    <script src="https://unpkg.com/vue-router@4"></script>
     <script src="https://unpkg.com/papaparse@5.3.0/papaparse.min.js"></script>
 </head>
 
 <body>
-    <div id="app-main" class="demo">
-        <h2>Yet Another Dominion Randomizer</h2>
-        <div class="card-list-container">
-            <div class="card-container" v-for="(card, i) in gameCards">
-                <div class="card-name-container">
-                    <div class="card-name">{{ card.Name }}</div>
-                    <div class="card-cost">{{ card.Cost }}</div>
-                    <div class="card-types">{{ card.Types }}</div>
-                </div>
-                <div class="card-set">{{ card.Set }}</div>
-                <div class="card-replace"><button @click="replaceCard(i)">Replace</button></div>
+    <div id="app-main">
+        <!-- <h2>Yet Another Dominion Randomizer</h2> -->
+        <div class="nav-bar">
+            <div class="nav-icon">
+                <a href="/"><img src="/favicon/favicon-96x96.png" /></a>
+            </div>
+            <div class="nav-item">
+                <router-link to="/">Home</router-link>
+            </div>
+            <div class="nav-item">
+                <router-link to="/about">Sets</router-link>
             </div>
         </div>
+        <router-view></router-view>
     </div>
     <script src="index.js"></script>
 </body>
