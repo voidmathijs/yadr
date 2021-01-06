@@ -22,29 +22,17 @@
 <body>
     <div id="app-main" class="demo">
         <h2>Yet Another Dominion Randomizer</h2>
-        <!-- <div id="app-gameCards">
-            <ul>
-                <game-card v-for="card in gameCards" v-bind:foo-bar="card" v-bind:key="card.Name">
-                </game-card>
-            </ul>
-        </div> -->
-        <main>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Cost</th>
-                    <th>Set</th>
-                </tr>
-                <tr v-for="(card, i) in gameCards">
-                    <td>{{ card.Name }}</td>
-                    <td>{{ card.Types }}</td>
-                    <td>{{ card.Cost }}</td>
-                    <td>{{ card.Set }}</td>
-                    <td><button @click="replaceCard(i)">Replace</button></td>
-                </tr>
-            </table>
-        </main>
+        <div class="card-list-container">
+            <div class="card-container" v-for="(card, i) in gameCards">
+                <div class="card-name-container">
+                    <div class="card-name">{{ card.Name }}</div>
+                    <div class="card-cost">{{ card.Cost }}</div>
+                    <div class="card-types">{{ card.Types }}</div>
+                </div>
+                <div class="card-set">{{ card.Set }}</div>
+                <div class="card-replace"><button @click="replaceCard(i)">Replace</button></div>
+            </div>
+        </div>
     </div>
     <script src="index.js"></script>
 </body>

@@ -1,32 +1,52 @@
-/* .demo {
-    font-family: sans-serif;
-    padding: 20px 30px;
-    margin-top: 1em;
-    margin-bottom: 40px;
-    user-select: none;
-    overflow-x: auto;
-  } */
-
-main {
+.card-list-container {
   display: flex;
-  justify-content: left;
+  flex-direction: column;
 }
 
-table {
-  max-width: 100%;
+.card-container {
+  display: flex;
 }
 
-tr:nth-child(odd) {
-  background-color: #eee;
+.card-name-container {
+  display: flex;
+  flex: 2;
+  flex-wrap: wrap;
 }
 
-th {
-  background-color: #555;
-  color: #fff;
+.card-name {
+  display: flex;
+  flex: 1 100%;
+  flex-wrap: wrap;
+  font-size: 4vw;
 }
 
-th,
-td {
-  text-align: left;
-  padding: 0.5em 1em;
+.card-cost {
+  display: flex;
+  padding-left: 1em;
+  padding-right: 1em;
+  font-size: 3vw;
+  color: gray;
+}
+
+.card-types {
+  display: flex;
+  flex: 1;
+  font-size: 3vw;
+  color: gray;
+}
+
+.card-set {
+  display: flex;
+  flex: 1;
+  font-size: 3vw;
+}
+
+.card-replace {
+  display: flex;
+  flex: 1;
+  padding: 5px;
+}
+
+.card-replace button {
+  width: 100%;
 }

@@ -1,20 +1,30 @@
 import csv
+import os
 
 
 def main():
-    #with open('translations_raw_test.csv', encoding="utf8") as source_csv:
-    with open('translations_raw.csv', encoding="utf8") as source_csv:
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # with open('translations_raw_test.csv', encoding="utf8") as source_csv:
+    with open(current_dir + '/translations_raw.csv', encoding="utf8") as source_csv:
         reader = csv.reader(source_csv, delimiter=',')
 
-        with open('translations_dutch.csv', 'w', newline='', encoding="utf8") as dest_csv:
+        with open(current_dir + '/translations_dutch.csv', 'w', newline='', encoding="utf8") as dest_csv:
             writer = csv.writer(dest_csv)
+
+            writer.writerow(['Base', 'Basisspel'])
+            writer.writerow(['Base, 1E', 'Basisspel, 1E'])
+            writer.writerow(['Base, 2E', 'Basisspel, 2E'])
+            writer.writerow(['Intrigue, 1E', 'Intrige, 1E'])
+            writer.writerow(['Intrigue, 2E', 'Intrige, 2E'])
+            writer.writerow(['Promo', 'Promo'])
 
             while True:
                 # Find languages line
                 eng_index, dutch_index = goto_next_set(reader)
                 if eng_index is None:
                     break
-                
+
                 # Parse one set
                 for line in reader:
                     if len(line) == 0 or len(line[0]) == 0 or line[0][0] == '[':
@@ -33,8 +43,9 @@ def goto_next_set(reader):
         elif line[0] == 'English':
             eof = False
             break
-    
-    if eof: return None, None
+
+    if eof:
+        return None, None
 
     eng_index = 0
     dutch_index = line.index('Dutch')
