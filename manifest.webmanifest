@@ -1,0 +1,15 @@
+{
+    "background_color": "purple",
+    "description": "Yet Another Dominion Randomizer",
+    "display": "minimal-ui",
+    "icons": [
+        {
+            "src": "icon/android-icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "name": "Yet Another Dominion Randomizer",
+    "short_name": "YADR",
+    "start_url": "index.html"
+}

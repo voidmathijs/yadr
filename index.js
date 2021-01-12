@@ -1,13 +1,16 @@
+import * as util from './modules/util.mjs'
+import SetsComponent from './modules/sets.mjs'
+
 const AppMain = {
     template: `
         <div class="card-list-container">
             <div class="card-container" v-for="(card, i) in gameCards">
                 <div class="card-name-container">
-                    <div class="card-name">{{ card.Name }}</div>
+                    <div class="card-name">{{ card.DutchName }}</div>
                     <div class="card-cost">{{ card.Cost }}</div>
                     <div class="card-types">{{ card.Types }}</div>
                 </div>
-                <div class="card-set">{{ card.Set }}</div>
+                <div class="card-set">{{ card.DutchSet }}</div>
                 <div class="card-replace"><button @click="replaceCard(i)">Replace</button></div>
             </div>
         </div>
@@ -24,7 +27,7 @@ const AppMain = {
     },
     methods: {
         async initTranslations() {
-            let engToDutchArray = await this.getCsv('translations_dutch', false);
+            let engToDutchArray = await util.getCsv('data/translations_dutch.csv', false);
 
             // Convert to dict
             let engToDutch = {};
@@ -38,37 +41,32 @@ const AppMain = {
         },
 
         async initCards() {
+            // All cards
+            let availibleCards = await util.getCsv('data/cards.csv', true);
+            console.log(availibleCards.length);
+
+            // Filter out unchecked sets
+            availibleCards = this.filterToChosenSets(availibleCards);
+            console.log(availibleCards.length);
+
+            // Filter out non-playable types
+            let ignoreTypes = ['Artifact', 'Project', 'Event', 'Way', 'Landmark', 'Curse'];
+            availibleCards = availibleCards.filter(card => !ignoreTypes.includes(card.Types));
+            console.log(availibleCards.length);
+
             // Get 10 random cards
-            let allCards = await this.getCsv('cards', true);
-            let gameCards = this.shuffleAndSelectRandom(allCards, 10);
+            let gameCards = this.shuffleAndSelectRandom(availibleCards, 10);
 
             // Translate to dutch
-            gameCards.forEach((card, i) => this.toDutch(card));
+            gameCards.forEach(card => {
+                card.DutchName = this.toDutch(card.Name);
+                card.DutchSet = this.toDutch(card.Set);
+            });
 
-            // Sort alphabetically
-            gameCards.sort(function (a, b) {
-                if (a.Name < b.Name) return -1;
-                if (a.Name > b.Name) return 1;
-                return 0;
-            })
+            this.sortCardsByDutchName(gameCards);
 
             console.log(gameCards[0]);
             this.gameCards = gameCards;
-        },
-
-        async getCsv(filename, hasHeader) {
-            return new Promise((resolve, reject) => {
-                Papa.parse(`data/${filename}.csv`, {
-                    header: hasHeader,
-                    download: true,
-                    complete: function (results) {
-                        resolve(results.data);
-                    },
-                    error: function (err) {
-                        reject(err);
-                    }
-                });
-            });
         },
 
         /**
@@ -93,11 +91,28 @@ const AppMain = {
 
         },
 
-        toDutch(card) {
-            if (!(card.Name in this.engToDutch)) console.log('No translation for: ' + card.Name);
-            if (!(card.Set in this.engToDutch)) console.log('No translation for: ' + card.Set);
-            card.Name = card.Name in this.engToDutch ? this.engToDutch[card.Name] : card.Name;
-            card.Set = card.Set in this.engToDutch ? this.engToDutch[card.Set] : card.Set;
+        toDutch(name) {
+            if (!(name in this.engToDutch)) console.log('No translation for: ' + name);
+            return name in this.engToDutch ? this.engToDutch[name] : name;
+        },
+
+        sortCardsByDutchName(cards) {
+            cards.sort(function (a, b) {
+                if (a.DutchName < b.DutchName) return -1;
+                if (a.DutchName > b.DutchName) return 1;
+                return 0;
+            })
+        },
+
+        filterToChosenSets(cards) {
+            let sets = cards.map(card => card.Set);
+            sets = [...new Set(sets)];
+
+            let checkedSets = sets;
+            if (localStorage.checkedSets)
+                checkedSets = JSON.parse(localStorage.checkedSets);
+
+            return cards.filter(card => checkedSets.includes(card.Set));
         }
     }
 }
@@ -108,7 +123,7 @@ const About = { template: '<div>About</div>' }
 
 const routes = [
     { path: '/', component: AppMain },
-    { path: '/about', component: About },
+    { path: '/about', component: SetsComponent },
 ]
 
 const router = VueRouter.createRouter({
@@ -119,7 +134,4 @@ const router = VueRouter.createRouter({
 const app = Vue.createApp({});
 app.use(router);
 
-// const app = Vue.createApp(AppMain);
-// const app = Vue.createApp({});
-// app.component('asdf', AppMain);
 app.mount('#app-main');
