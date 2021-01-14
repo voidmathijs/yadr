@@ -1,29 +1,36 @@
 import * as util from './modules/util.mjs'
 import SetsComponent from './modules/sets.mjs'
+import { HistoryComponent, addGameToHistory } from './modules/history.mjs';
 
 const AppMain = {
     template: `
         <div class="card-list-container">
             <div class="card-container" v-for="(card, i) in gameCards">
-                <div class="card-name-container">
-                    <div class="card-name">{{ card.DutchName }}</div>
-                    <div class="card-cost">{{ card.Cost }}</div>
-                    <div class="card-types">{{ card.Types }}</div>
-                </div>
-                <div class="card-set">{{ card.DutchSet }}</div>
+                <a :href="'http://wiki.dominionstrategy.com/index.php/' + card.Name.replace(' ', '_')">
+                    <div class="card-name-container">
+                        <div class="card-name">{{ card.DutchName }}</div>
+                        <div class="card-cost">{{ card.Cost }}</div>
+                        <div class="card-types">{{ card.Types }}</div>
+                    </div>
+                </a>
                 <div class="card-replace"><button @click="replaceCard(i)">Replace</button></div>
             </div>
+        </div>
+        <div class="add-history">
+            <button @click="addHistory()">Add cards to history</button>
         </div>
     `,
     data() {
         return {
             engToDutch: [],
+            availibleCards: [],
             gameCards: []
         }
     },
     async mounted() {
         await this.initTranslations();
-        await this.initCards();
+        await this.initAvailibleCards();
+        this.initGameCards();
     },
     methods: {
         async initTranslations() {
@@ -40,55 +47,81 @@ const AppMain = {
             this.engToDutch = engToDutch;
         },
 
-        async initCards() {
+        async initAvailibleCards() {
             // All cards
             let availibleCards = await util.getCsv('data/cards.csv', true);
-            console.log(availibleCards.length);
 
             // Filter out unchecked sets
             availibleCards = this.filterToChosenSets(availibleCards);
-            console.log(availibleCards.length);
 
             // Filter out non-playable types
             let ignoreTypes = ['Artifact', 'Project', 'Event', 'Way', 'Landmark', 'Curse'];
             availibleCards = availibleCards.filter(card => !ignoreTypes.includes(card.Types));
-            console.log(availibleCards.length);
-
-            // Get 10 random cards
-            let gameCards = this.shuffleAndSelectRandom(availibleCards, 10);
 
             // Translate to dutch
-            gameCards.forEach(card => {
+            availibleCards.forEach(card => {
                 card.DutchName = this.toDutch(card.Name);
                 card.DutchSet = this.toDutch(card.Set);
             });
 
-            this.sortCardsByDutchName(gameCards);
+            this.availibleCards = availibleCards;
+            console.log(availibleCards);
+        },
 
-            console.log(gameCards[0]);
+        initGameCards() {
+            // let gameCards = [];
+
+            // if (localStorage.currentGame) {
+            //     gameCards = JSON.parse(localStorage.currentGame);
+            // }
+            // else {
+            // Draw 10 random cards
+            this.randomizeFirstTenCards(this.availibleCards);
+            let gameCards = this.availibleCards.slice(0, 10);
+            this.availibleCards = this.availibleCards.slice(10);
+
+            this.sortCardsByDutchName(gameCards);
+            // }
+
+            // this.setCurrentGame(gameCards);
             this.gameCards = gameCards;
         },
 
-        /**
-         * Returns an array of randomly selected cards.
-         * Warning: has side effect of shuffling the cards array.
+        /** 
+         * Randomizes the first ten cards.
+         * See also: https://blog.codinghorror.com/the-danger-of-naivete/
          */
-        shuffleAndSelectRandom(cards = [], count = 10) {
-            if (count > cards.length) throw 'Not enough cards to randomly select';
-            if (count == cards.length) return cards.slice();
+        randomizeFirstTenCards(availibleCards = []) {
+            const count = 10;
+            if (availibleCards.length < count) throw 'Not enough cards to shuffle ' + count;
 
-            // Select 'count' random cards by shuffling the first 'count' cards.
             for (let i = 0; i < count; i++) {
-                let rnd = i + Math.floor(Math.random() * (cards.length - i));
-                [cards[rnd], cards[i]] = [cards[i], cards[rnd]];
+                let rnd = i + Math.floor(Math.random() * (availibleCards.length - i));
+                [availibleCards[rnd], availibleCards[i]] = [availibleCards[i], availibleCards[rnd]];
             }
-
-            return cards.slice(0, count);
         },
 
         replaceCard(gameCardIndex) {
-            console.log(gameCardIndex);
+            // Randomly select new card from availible cards
+            const rnd = Math.floor(Math.random() * (this.availibleCards.length));
+            const cardToAdd = this.availibleCards[rnd];
+            this.availibleCards.splice(rnd, 1);
 
+            // Replace card with new card
+            const cardToRemove = this.gameCards[gameCardIndex];
+            this.gameCards[gameCardIndex] = cardToAdd;
+            this.availibleCards.push(cardToRemove);
+        },
+
+        // setCurrentGame(cards) {
+        //     localStorage.currentGame = JSON.stringify(cards);
+        //     this.gameCards = cards;
+        // },
+
+        addHistory() {
+            if (this.gameCards.length == 0) throw 'No cards to add to history';
+            const cards = this.gameCards.map(c => c.Name);
+            addGameToHistory(cards);
         },
 
         toDutch(name) {
@@ -118,12 +151,10 @@ const AppMain = {
 }
 
 
-const Home = { template: '<div>Home</div>' }
-const About = { template: '<div>About</div>' }
-
 const routes = [
     { path: '/', component: AppMain },
-    { path: '/about', component: SetsComponent },
+    { path: '/history', component: HistoryComponent },
+    { path: '/settings', component: SetsComponent },
 ]
 
 const router = VueRouter.createRouter({

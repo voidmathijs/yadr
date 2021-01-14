@@ -5,7 +5,6 @@ import os
 def main():
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
-    # with open('translations_raw_test.csv', encoding="utf8") as source_csv:
     with open(current_dir + '/translations_raw.csv', encoding="utf8") as source_csv:
         reader = csv.reader(source_csv, delimiter=',')
 
@@ -29,9 +28,15 @@ def main():
                 for line in reader:
                     if len(line) == 0 or len(line[0]) == 0 or line[0][0] == '[':
                         break
+
                     # Skip some bad lines in the raw data
                     elif line[0] == 'Promo' or line[0] == 'Basic cards':
                         continue
+
+                    # Fix some capitilization
+                    elif line[0] == 'Jack of all Trades':
+                        line[0] = 'Jack of All Trades'
+
                     writer.writerow([line[eng_index], line[dutch_index]])
 
 

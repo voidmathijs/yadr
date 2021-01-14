@@ -42,11 +42,9 @@ const SetsComponent = {
             // Get array of sets, translated
             let sets = allCards.map(card => card.Set);
             sets = [...new Set(sets)];
-            // sets = sets.map(set => this.toDutch(set));
 
             // console.log(sets);
             this.sets = sets;
-            // this.checkedSets = sets;
             if (localStorage.checkedSets)
                 this.checkedSets = JSON.parse(localStorage.checkedSets);
             else

@@ -18,10 +18,13 @@
     <div id="app-main">
         <div class="nav-bar">
             <div class="nav-item">
-                <router-link to="/">Random</router-link>
+                <router-link to="/">Game</router-link>
             </div>
-            <div class="nav-item">
-                <router-link to="/about">Sets</router-link>
+            <div class="nav-item nav-settings">
+                <router-link to="/history">History</router-link>
+            </div>
+            <div class="nav-item nav-settings">
+                <router-link to="/settings"><img src="./icon/settings.png" /></router-link>
             </div>
         </div>
         <router-view></router-view>
