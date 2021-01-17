@@ -28,6 +28,8 @@ const AppMain = {
         }
     },
     async mounted() {
+        await util.wakeLock(45);
+
         await this.initTranslations();
         await this.initAvailibleCards();
         this.initGameCards();

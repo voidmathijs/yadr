@@ -45,3 +45,27 @@ export async function getCsv(filename, hasHeader) {
         });
     });
 }
+
+// Prevents screen turning off. See: https://web.dev/wake-lock/
+export async function wakeLock(timeoutSeconds = 5) {
+    // Create a reference for the Wake Lock.
+    let wakeLock = null;
+
+    // create an async function to request a wake lock
+    try {
+        wakeLock = await navigator.wakeLock.request('screen');
+        console.log('Wake Lock is active!');
+    } catch (err) {
+        // The Wake Lock request has failed - usually system related, such as battery.
+        console.log(`${err.name}, ${err.message}`);
+    }
+
+    // …and release it again after timeout seconds.
+    window.setTimeout(() => {
+        wakeLock.release()
+            .then(() => {
+                wakeLock = null;
+            });
+        console.log('Wake Lock released');
+    }, timeoutSeconds * 1000);
+}
