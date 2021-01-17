@@ -112,13 +112,13 @@ body {
   width: 100%;
 }
 
-.add-history {
+.game-actions {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   padding-top: 10px;
 }
 
-.add-history button {
+.game-actions button {
   height: 40px;
 }
 

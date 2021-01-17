@@ -16,8 +16,13 @@ const AppMain = {
                 <div class="card-replace"><button @click="replaceCard(i)">Replace</button></div>
             </div>
         </div>
-        <div class="add-history">
-            <button @click="addHistory()">Add cards to history</button>
+        <div class="game-actions">
+            <div class="randomize-cards">
+                <button @click="randomizeCards()">Randomize</button>
+            </div>
+            <div class="add-history">
+                <button @click="addHistory()">Add cards to history</button>
+            </div>
         </div>
     `,
     data() {
@@ -28,8 +33,6 @@ const AppMain = {
         }
     },
     async mounted() {
-        await util.wakeLock(45);
-
         await this.initTranslations();
         await this.initAvailibleCards();
         this.initGameCards();
@@ -67,26 +70,27 @@ const AppMain = {
             });
 
             this.availibleCards = availibleCards;
-            console.log(availibleCards);
         },
 
         initGameCards() {
-            // let gameCards = [];
+            const savedCards = this.getSavedCards();
 
-            // if (localStorage.currentGame) {
-            //     gameCards = JSON.parse(localStorage.currentGame);
-            // }
-            // else {
-            // Draw 10 random cards
-            this.randomizeFirstTenCards(this.availibleCards);
-            let gameCards = this.availibleCards.slice(0, 10);
-            this.availibleCards = this.availibleCards.slice(10);
+            if (savedCards && savedCards.length) {
+                console.log('Using saved cards');
+                this.gameCards = savedCards;
+            }
+            else {
+                console.log('Generating random cards');
+                // Draw 10 random cards
+                this.randomizeFirstTenCards(this.availibleCards);
+                let gameCards = this.availibleCards.slice(0, 10);
+                this.availibleCards = this.availibleCards.slice(10);
 
-            this.sortCardsByDutchName(gameCards);
-            // }
+                this.sortCardsByDutchName(gameCards);
 
-            // this.setCurrentGame(gameCards);
-            this.gameCards = gameCards;
+                this.setSavedCards(gameCards);
+                this.gameCards = gameCards;
+            }
         },
 
         /** 
@@ -115,10 +119,34 @@ const AppMain = {
             this.availibleCards.push(cardToRemove);
         },
 
-        // setCurrentGame(cards) {
-        //     localStorage.currentGame = JSON.stringify(cards);
-        //     this.gameCards = cards;
-        // },
+        getSavedCards() {
+            if (localStorage.savedCardNames) {
+                const savedCardNames = JSON.parse(localStorage.savedCardNames);
+
+                const savedCards = [];
+                for (let i = 0; i < savedCardNames.length; i++) {
+                    const name = savedCardNames[i];
+                    const card = this.availibleCards.find(card => card.Name == name);
+                    if (!card) throw `Could not match card {name} in saved cards`;
+                    savedCards.push(card);
+                }
+
+                return savedCards;
+            }
+            return [];
+        },
+
+        setSavedCards(cards) {
+            const savedCardsNames = cards.map(card => card.Name);
+            localStorage.savedCardNames = JSON.stringify(savedCardsNames);
+        },
+
+        randomizeCards() {
+            // TODO: implement
+
+            localStorage.removeItem('savedCardNames');
+            console.log('savedCardNames deleted');
+        },
 
         addHistory() {
             if (this.gameCards.length == 0) throw 'No cards to add to history';
@@ -168,3 +196,8 @@ const app = Vue.createApp({});
 app.use(router);
 
 app.mount('#app-main');
+
+
+window.addEventListener('load', (event) => {
+    util.wakeLock(5 * 60);
+});
