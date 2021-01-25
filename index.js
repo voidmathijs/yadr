@@ -1,6 +1,7 @@
 import * as util from './modules/util.mjs'
 import SetsComponent from './modules/sets.mjs'
-import { HistoryComponent, addGameToHistory } from './modules/history.mjs';
+import { HistoryComponent, addGameToHistory, getHistoryCards } from './modules/history.mjs';
+import { getSavedCards, setSavedCards, clearSavedCards } from './modules/savedCards.mjs'
 
 const AppMain = {
     template: `
@@ -60,8 +61,30 @@ const AppMain = {
             availibleCards = this.filterToChosenSets(availibleCards);
 
             // Filter out non-playable types
-            let ignoreTypes = ['Artifact', 'Project', 'Event', 'Way', 'Landmark', 'Curse'];
+            const ignoreTypes = ['Artifact', 'Project', 'Event', 'Way', 'Landmark', 'Curse'];
             availibleCards = availibleCards.filter(card => !ignoreTypes.includes(card.Types));
+
+            // Filter out split piles
+            const splitNames = ['Plunder', 'Emporium', 'Bustling Village', 'Rocks', 'Fortune', 'Avanto']
+            availibleCards = availibleCards.filter(card => !splitNames.includes(card.Name));
+
+            // Filter out Castles pile
+            const castleNames = ['Humble Castle', 'Crumbling Castle', 'Small Castle', 'Haunted Castle', 'Opulent Castle', 'Sprawling Castle', 'Grand Castle', "King's Castle"];
+            availibleCards = availibleCards.filter(card => !castleNames.includes(card.Name));
+
+            // Filter out prizes
+            const prizes = ['Bag of Gold', 'Diadem', 'Followers', 'Princess', 'Trusty Steed'];
+            availibleCards = availibleCards.filter(card => !prizes.includes(card.Name));
+
+            // Filter out miscellaneous
+            const misc = ['Horse'];
+            availibleCards = availibleCards.filter(card => !misc.includes(card.Name));
+
+            // Filter out history cards
+            const historyCards = getHistoryCards().flat();
+            availibleCards = availibleCards.filter(card => !historyCards.includes(card.Name));
+
+            console.log(availibleCards.length);
 
             // Translate to dutch
             availibleCards.forEach(card => {
@@ -73,7 +96,7 @@ const AppMain = {
         },
 
         initGameCards() {
-            const savedCards = this.getSavedCards();
+            const savedCards = getSavedCards(this.availibleCards);
 
             if (savedCards && savedCards.length) {
                 console.log('Using saved cards');
@@ -88,7 +111,7 @@ const AppMain = {
 
                 this.sortCardsByDutchName(gameCards);
 
-                this.setSavedCards(gameCards);
+                setSavedCards(gameCards);
                 this.gameCards = gameCards;
             }
         },
@@ -117,35 +140,14 @@ const AppMain = {
             const cardToRemove = this.gameCards[gameCardIndex];
             this.gameCards[gameCardIndex] = cardToAdd;
             this.availibleCards.push(cardToRemove);
-        },
 
-        getSavedCards() {
-            if (localStorage.savedCardNames) {
-                const savedCardNames = JSON.parse(localStorage.savedCardNames);
-
-                const savedCards = [];
-                for (let i = 0; i < savedCardNames.length; i++) {
-                    const name = savedCardNames[i];
-                    const card = this.availibleCards.find(card => card.Name == name);
-                    if (!card) throw `Could not match card {name} in saved cards`;
-                    savedCards.push(card);
-                }
-
-                return savedCards;
-            }
-            return [];
-        },
-
-        setSavedCards(cards) {
-            const savedCardsNames = cards.map(card => card.Name);
-            localStorage.savedCardNames = JSON.stringify(savedCardsNames);
+            // Don't forget to update the current saved cards
+            setSavedCards(this.gameCards);
         },
 
         randomizeCards() {
-            // TODO: implement
-
-            localStorage.removeItem('savedCardNames');
-            console.log('savedCardNames deleted');
+            clearSavedCards();
+            this.$router.go(0);
         },
 
         addHistory() {

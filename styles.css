@@ -141,3 +141,13 @@ body {
 .clear-history button {
   height: 40px;
 }
+
+.clear-all {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+.clear-all button {
+  height: 40px;
+}

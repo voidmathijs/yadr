@@ -6,7 +6,7 @@ export const HistoryComponent = {
             <button @click="clearHistory()">Clear</button>
         </div>
         <div class="games-container">
-            <div class="game-container" v-for="game in games">
+            <div class="game-container" v-for="game in historyCards">
                 <div class="card-history" v-for="card in game">
                     {{ toDutch(card) }}
                 </div>
@@ -17,7 +17,7 @@ export const HistoryComponent = {
     data() {
         return {
             engToDutch: [],
-            games: []
+            historyCards: []
         }
     },
     async mounted() {
@@ -40,17 +40,18 @@ export const HistoryComponent = {
         },
 
         initHistory() {
-            let games = [];
-            if (localStorage.games)
-                games = JSON.parse(localStorage.games);
+            // let historyCards = [];
+            // if (localStorage.historyCards)
+            //     historyCards = JSON.parse(localStorage.historyCards);
+            const historyCards = getHistoryCards();
 
-            this.games = games.reverse();
+            this.historyCards = historyCards.reverse();
         },
 
         clearHistory() {
             if (confirm('This will clear all history. Are you sure?')) {
-                localStorage.removeItem('games');
-                this.games = [];
+                localStorage.removeItem('historyCards');
+                this.historyCards = [];
             }
         },
 
@@ -62,11 +63,19 @@ export const HistoryComponent = {
 };
 
 export function addGameToHistory(gameCards = []) {
-    let games = [];
-    if (localStorage.games)
-        games = JSON.parse(localStorage.games);
+    let historyCards = [];
+    if (localStorage.historyCards)
+        historyCards = JSON.parse(localStorage.historyCards);
 
-    games.push(gameCards);
+    historyCards.push(gameCards);
 
-    localStorage.games = JSON.stringify(games);
+    localStorage.historyCards = JSON.stringify(historyCards);
+}
+
+export function getHistoryCards() {
+    let historyCards = [];
+    if (localStorage.historyCards)
+        historyCards = JSON.parse(localStorage.historyCards);
+
+    return historyCards;
 }

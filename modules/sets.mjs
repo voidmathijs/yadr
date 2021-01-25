@@ -1,4 +1,5 @@
 import * as util from './util.mjs'
+import { clearSavedCards } from './savedCards.mjs'
 
 const SetsComponent = {
     template: `
@@ -8,6 +9,10 @@ const SetsComponent = {
                         v-model="checkedSets" @change="handleSet(set)" />
                 <div class="card-name">{{ toDutch(set) }}</div>
             </div>
+        </div>
+        <hr />
+        <div class="clear-all">
+            <button @click="clearLocalStorage()">Nuke local storage</button>
         </div>
     `,
     data() {
@@ -58,7 +63,15 @@ const SetsComponent = {
 
         handleSet(set) {
             localStorage.checkedSets = JSON.stringify(this.checkedSets);
-        }
+            clearSavedCards();
+        },
+
+        clearLocalStorage() {
+            if (confirm('This will clear ALL data for this app! Are you sure?')) {
+                localStorage.clear();
+                this.historyCards = [];
+            }
+        },
     }
 };
 
