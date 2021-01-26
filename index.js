@@ -22,7 +22,7 @@ const AppMain = {
                 <button @click="randomizeCards()">Randomize</button>
             </div>
             <div class="add-history">
-                <button @click="addHistory()">Add cards to history</button>
+                <button @click="buttonAddHistory()">Add cards to history</button>
             </div>
         </div>
     `,
@@ -34,6 +34,11 @@ const AppMain = {
         }
     },
     async mounted() {
+        if ('addhistory' in this.$route.query) {
+            const cards = this.$route.query['addhistory'].split(',');
+            this.incomingUrlAddToHistory(cards);
+        }
+
         await this.initTranslations();
         await this.initAvailibleCards();
         this.initGameCards();
@@ -96,24 +101,30 @@ const AppMain = {
         },
 
         initGameCards() {
-            const savedCards = getSavedCards(this.availibleCards);
-
-            if (savedCards && savedCards.length) {
-                console.log('Using saved cards');
-                this.gameCards = savedCards;
+            let cards = [];
+            // Try getting saved cards, ignore if fails
+            try {
+                cards = getSavedCards(this.availibleCards);
             }
-            else {
+            catch (error) {
+                console.error(error);
+            }
+
+            // If needed, generate new cards
+            if (!cards || !cards.length) {
                 console.log('Generating random cards');
+
                 // Draw 10 random cards
                 this.randomizeFirstTenCards(this.availibleCards);
-                let gameCards = this.availibleCards.slice(0, 10);
-                this.availibleCards = this.availibleCards.slice(10);
+                cards = this.availibleCards.slice(0, 10);
 
-                this.sortCardsByDutchName(gameCards);
-
-                setSavedCards(gameCards);
-                this.gameCards = gameCards;
+                this.sortCardsByDutchName(cards);
+                setSavedCards(cards);
             }
+
+            this.gameCards = cards;
+            const names = cards.map(c => c.Name);
+            this.availibleCards = this.availibleCards.filter(card => !names.includes(card.Name));
         },
 
         /** 
@@ -121,8 +132,11 @@ const AppMain = {
          * See also: https://blog.codinghorror.com/the-danger-of-naivete/
          */
         randomizeFirstTenCards(availibleCards = []) {
-            const count = 10;
-            if (availibleCards.length < count) throw 'Not enough cards to shuffle ' + count;
+            let count = 10;
+            if (availibleCards.length < count) {
+                console.warn('Not enough cards to shuffle ' + count);
+                count = availibleCards.length;
+            }
 
             for (let i = 0; i < count; i++) {
                 let rnd = i + Math.floor(Math.random() * (availibleCards.length - i));
@@ -131,6 +145,11 @@ const AppMain = {
         },
 
         replaceCard(gameCardIndex) {
+            if (!this.availibleCards || !this.availibleCards.length) {
+                console.warn('No cards availible for replacement');
+                return;
+            }
+
             // Randomly select new card from availible cards
             const rnd = Math.floor(Math.random() * (this.availibleCards.length));
             const cardToAdd = this.availibleCards[rnd];
@@ -150,10 +169,16 @@ const AppMain = {
             this.$router.go(0);
         },
 
-        addHistory() {
+        buttonAddHistory() {
             if (this.gameCards.length == 0) throw 'No cards to add to history';
             const cards = this.gameCards.map(c => c.Name);
             addGameToHistory(cards);
+        },
+
+        incomingUrlAddToHistory(cardNames) {
+            if (confirm('Add the cards specified in the url to the history?')) {
+                addGameToHistory(cardNames);
+            }
         },
 
         toDutch(name) {
@@ -190,7 +215,7 @@ const routes = [
 ]
 
 const router = VueRouter.createRouter({
-    history: VueRouter.createWebHashHistory(),
+    history: VueRouter.createWebHistory(),
     routes, // short for `routes: routes`
 })
 
@@ -199,7 +224,7 @@ app.use(router);
 
 app.mount('#app-main');
 
-
+// Keep screen on for 5 minutes
 window.addEventListener('load', (event) => {
     util.wakeLock(5 * 60);
 });
