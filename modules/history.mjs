@@ -62,12 +62,12 @@ export const HistoryComponent = {
     }
 };
 
-export function addGameToHistory(gameCards = []) {
+export function addGameToHistory(cardNames = []) {
     let historyCards = [];
     if (localStorage.historyCards)
         historyCards = JSON.parse(localStorage.historyCards);
 
-    historyCards.push(gameCards);
+    historyCards.push(cardNames);
 
     localStorage.historyCards = JSON.stringify(historyCards);
 }

@@ -34,6 +34,8 @@ const AppMain = {
         }
     },
     async mounted() {
+        console.log(this.$route);
+
         if ('addhistory' in this.$route.query) {
             const cards = this.$route.query['addhistory'].split(',');
             this.incomingUrlAddToHistory(cards);
@@ -171,8 +173,8 @@ const AppMain = {
 
         buttonAddHistory() {
             if (this.gameCards.length == 0) throw 'No cards to add to history';
-            const cards = this.gameCards.map(c => c.Name);
-            addGameToHistory(cards);
+            const cardNames = this.gameCards.map(c => c.Name);
+            addGameToHistory(cardNames);
         },
 
         incomingUrlAddToHistory(cardNames) {
@@ -215,7 +217,8 @@ const routes = [
 ]
 
 const router = VueRouter.createRouter({
-    history: VueRouter.createWebHistory(),
+    // history: VueRouter.createWebHistory(),
+    history: VueRouter.createWebHistory('/yadr/'),
     routes, // short for `routes: routes`
 })
 
