@@ -67,8 +67,12 @@ const AppMain = {
             // Filter out unchecked sets
             availibleCards = this.filterToChosenSets(availibleCards);
 
-            // Filter out non-playable types
-            const ignoreTypes = ['Artifact', 'Project', 'Event', 'Way', 'Landmark', 'Curse'];
+            // Filter out base cards
+            const baseNames = ['Copper', 'Silver', 'Gold', 'Estate', 'Duchy', 'Province', 'Curse'];
+            availibleCards = availibleCards.filter(card => !baseNames.includes(card.Name));
+
+            // Filter out non-playable TYPES (not names)
+            const ignoreTypes = ['Artifact', 'Project', 'Event', 'Way', 'Landmark'];
             availibleCards = availibleCards.filter(card => !ignoreTypes.includes(card.Types));
 
             // Filter out split piles

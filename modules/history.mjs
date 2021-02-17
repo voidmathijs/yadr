@@ -7,8 +7,10 @@ export const HistoryComponent = {
         </div>
         <div class="games-container">
             <div class="game-container" v-for="game in historyCards">
-                <div class="card-history" v-for="card in game">
-                    {{ toDutch(card) }}
+                <div class="card-history" v-for="cardName in game">
+                    <a :href="'http://wiki.dominionstrategy.com/index.php/' + cardName.replace(' ', '_')">
+                            <div class="card-name">{{ toDutch(cardName) }}</div>
+                    </a>
                 </div>
                 <hr />
             </div>
@@ -40,9 +42,6 @@ export const HistoryComponent = {
         },
 
         initHistory() {
-            // let historyCards = [];
-            // if (localStorage.historyCards)
-            //     historyCards = JSON.parse(localStorage.historyCards);
             const historyCards = getHistoryCards();
 
             this.historyCards = historyCards.reverse();
