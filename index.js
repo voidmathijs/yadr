@@ -24,6 +24,9 @@ const AppMain = {
             <div class="add-history">
                 <button @click="buttonAddHistory()">Add cards to history</button>
             </div>
+            <div class="order-cards">
+                <button @click="orderCards()">⇵</button>
+            </div>
         </div>
     `,
     data() {
@@ -181,6 +184,14 @@ const AppMain = {
             addGameToHistory(cardNames);
         },
 
+        orderCards() {
+            const cards = this.gameCards;
+            cards.sort(function (a, b) {
+                return a.DutchName.localeCompare(b.DutchName);
+            });
+            this.gameCards = cards;
+        },
+
         incomingUrlAddToHistory(cardNames) {
             if (confirm('Add the cards specified in the url to the history?')) {
                 addGameToHistory(cardNames);
@@ -221,8 +232,8 @@ const routes = [
 ]
 
 const router = VueRouter.createRouter({
-    // history: VueRouter.createWebHistory(),
-    history: VueRouter.createWebHistory('/yadr/'),
+    history: VueRouter.createWebHistory(),
+    //history: VueRouter.createWebHistory('/yadr/'),
     routes, // short for `routes: routes`
 })
 
@@ -232,6 +243,8 @@ app.use(router);
 app.mount('#app-main');
 
 // Keep screen on for 5 minutes
-window.addEventListener('load', (event) => {
+function setWakeLock(event) {
     util.wakeLock(5 * 60);
-});
+}
+window.addEventListener('load', setWakeLock);
+window.addEventListener('focus', setWakeLock);

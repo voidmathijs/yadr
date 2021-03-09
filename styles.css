@@ -122,6 +122,10 @@ body {
   height: 40px;
 }
 
+.order-cards button {
+  font-size: 1.5em;
+}
+
 .set-container {
   display: flex;
   align-items: center;
