@@ -195,8 +195,8 @@ const routes = [
 ]
 
 const router = VueRouter.createRouter({
-    history: VueRouter.createWebHistory(),
-    //history: VueRouter.createWebHistory('/yadr/'),
+    //history: VueRouter.createWebHistory(),
+    history: VueRouter.createWebHistory('/yadr/'),
     routes, // short for `routes: routes`
 })
 
