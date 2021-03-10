@@ -2,6 +2,34 @@ export const ALCHEMY_DONTCARE = 0;
 export const ALCHEMY_FORCE = 1;
 export const ALCHEMY_FORCENOT = 2;
 
+export function filterOutNonpickableCards(availibleCards = []) {
+    // Filter out base cards
+    const baseNames = ['Copper', 'Silver', 'Gold', 'Estate', 'Duchy', 'Province', 'Curse'];
+    availibleCards = availibleCards.filter(card => !baseNames.includes(card.Name));
+
+    // Filter out non-playable TYPES (not names)
+    const ignoreTypes = ['Artifact', 'Project', 'Event', 'Way', 'Landmark'];
+    availibleCards = availibleCards.filter(card => !ignoreTypes.includes(card.Types));
+
+    // Filter out split piles
+    const splitNames = ['Plunder', 'Emporium', 'Bustling Village', 'Rocks', 'Fortune', 'Avanto']
+    availibleCards = availibleCards.filter(card => !splitNames.includes(card.Name));
+
+    // Filter out Castles pile
+    const castleNames = ['Humble Castle', 'Crumbling Castle', 'Small Castle', 'Haunted Castle', 'Opulent Castle', 'Sprawling Castle', 'Grand Castle', "King's Castle"];
+    availibleCards = availibleCards.filter(card => !castleNames.includes(card.Name));
+
+    // Filter out prizes
+    const prizes = ['Bag of Gold', 'Diadem', 'Followers', 'Princess', 'Trusty Steed'];
+    availibleCards = availibleCards.filter(card => !prizes.includes(card.Name));
+
+    // Filter out miscellaneous
+    const misc = ['Horse'];
+    availibleCards = availibleCards.filter(card => !misc.includes(card.Name));
+
+    return availibleCards;
+}
+
 /** 
 * Randomizes the first ten cards.
 * See also: https://blog.codinghorror.com/the-danger-of-naivete/

@@ -15,18 +15,18 @@ const AppMain = {
                         <div class="card-types">{{ card.Types }}</div>
                     </div>
                 </a>
-                <div class="card-replace"><button @click="replaceCard(i)">Replace</button></div>
+                <div class="card-replace"><button @click="onClickReplaceCard(i)">Replace</button></div>
             </div>
         </div>
         <div class="game-actions">
             <div class="randomize-cards">
-                <button @click="randomizeCards()">Randomize</button>
+                <button @click="onClickRandomizeCards()">Randomize</button>
             </div>
             <div class="add-history">
-                <button @click="buttonAddHistory()">Add cards to history</button>
+                <button @click="onClickAddHistory()">Add cards to history</button>
             </div>
             <div class="order-cards">
-                <button @click="orderCards()">⇵</button>
+                <button @click="onClickOrderCards()">⇵</button>
             </div>
         </div>
     `,
@@ -48,6 +48,12 @@ const AppMain = {
         this.initGameCards();
     },
     methods: {
+        incomingUrlAddToHistory(cardNames) {
+            if (confirm('Add the cards specified in the url to the history?')) {
+                addGameToHistory(cardNames);
+            }
+        },
+
         async initTranslations() {
             let engToDutchArray = await util.getCsv('data/translations_dutch.csv', false);
 
@@ -69,29 +75,8 @@ const AppMain = {
             // Filter out unchecked sets
             availibleCards = this.filterToChosenSets(availibleCards);
 
-            // Filter out base cards
-            const baseNames = ['Copper', 'Silver', 'Gold', 'Estate', 'Duchy', 'Province', 'Curse'];
-            availibleCards = availibleCards.filter(card => !baseNames.includes(card.Name));
-
-            // Filter out non-playable TYPES (not names)
-            const ignoreTypes = ['Artifact', 'Project', 'Event', 'Way', 'Landmark'];
-            availibleCards = availibleCards.filter(card => !ignoreTypes.includes(card.Types));
-
-            // Filter out split piles
-            const splitNames = ['Plunder', 'Emporium', 'Bustling Village', 'Rocks', 'Fortune', 'Avanto']
-            availibleCards = availibleCards.filter(card => !splitNames.includes(card.Name));
-
-            // Filter out Castles pile
-            const castleNames = ['Humble Castle', 'Crumbling Castle', 'Small Castle', 'Haunted Castle', 'Opulent Castle', 'Sprawling Castle', 'Grand Castle', "King's Castle"];
-            availibleCards = availibleCards.filter(card => !castleNames.includes(card.Name));
-
-            // Filter out prizes
-            const prizes = ['Bag of Gold', 'Diadem', 'Followers', 'Princess', 'Trusty Steed'];
-            availibleCards = availibleCards.filter(card => !prizes.includes(card.Name));
-
-            // Filter out miscellaneous
-            const misc = ['Horse'];
-            availibleCards = availibleCards.filter(card => !misc.includes(card.Name));
+            // Filter out all non pickables like Copper / Projects / Prizes etc.
+            availibleCards = cardUtil.filterOutNonpickableCards(availibleCards);
 
             // Filter out history cards
             const historyCards = getHistoryCards().flat();
@@ -106,6 +91,17 @@ const AppMain = {
             });
 
             this.availibleCards = availibleCards;
+        },
+
+        filterToChosenSets(cards) {
+            let sets = cards.map(card => card.Set);
+            sets = [...new Set(sets)];
+
+            let checkedSets = sets;
+            if (localStorage.checkedSets)
+                checkedSets = JSON.parse(localStorage.checkedSets);
+
+            return cards.filter(card => checkedSets.includes(card.Set));
         },
 
         initGameCards() {
@@ -137,7 +133,20 @@ const AppMain = {
             this.availibleCards = this.availibleCards.filter(card => !names.includes(card.Name));
         },
 
-        replaceCard(gameCardIndex) {
+        toDutch(name) {
+            if (!(name in this.engToDutch)) console.log('No translation for: ' + name);
+            return name in this.engToDutch ? this.engToDutch[name] : name;
+        },
+
+        sortCardsByDutchName(cards) {
+            cards.sort(function (a, b) {
+                if (a.DutchName < b.DutchName) return -1;
+                if (a.DutchName > b.DutchName) return 1;
+                return 0;
+            });
+        },
+
+        onClickReplaceCard(gameCardIndex) {
             if (!this.availibleCards || !this.availibleCards.length) {
                 console.warn('No cards availible for replacement');
                 return;
@@ -157,54 +166,24 @@ const AppMain = {
             setSavedCards(this.gameCards);
         },
 
-        randomizeCards() {
+        onClickRandomizeCards() {
             clearSavedCards();
             this.$router.go(0);
         },
 
-        buttonAddHistory() {
+        onClickAddHistory() {
             if (this.gameCards.length == 0) throw 'No cards to add to history';
             const cardNames = this.gameCards.map(c => c.Name);
             addGameToHistory(cardNames);
         },
 
-        orderCards() {
+        onClickOrderCards() {
             const cards = this.gameCards;
             cards.sort(function (a, b) {
                 return a.DutchName.localeCompare(b.DutchName);
             });
             this.gameCards = cards;
         },
-
-        incomingUrlAddToHistory(cardNames) {
-            if (confirm('Add the cards specified in the url to the history?')) {
-                addGameToHistory(cardNames);
-            }
-        },
-
-        toDutch(name) {
-            if (!(name in this.engToDutch)) console.log('No translation for: ' + name);
-            return name in this.engToDutch ? this.engToDutch[name] : name;
-        },
-
-        sortCardsByDutchName(cards) {
-            cards.sort(function (a, b) {
-                if (a.DutchName < b.DutchName) return -1;
-                if (a.DutchName > b.DutchName) return 1;
-                return 0;
-            });
-        },
-
-        filterToChosenSets(cards) {
-            let sets = cards.map(card => card.Set);
-            sets = [...new Set(sets)];
-
-            let checkedSets = sets;
-            if (localStorage.checkedSets)
-                checkedSets = JSON.parse(localStorage.checkedSets);
-
-            return cards.filter(card => checkedSets.includes(card.Set));
-        }
     }
 }
 
