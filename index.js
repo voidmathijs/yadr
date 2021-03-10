@@ -1,7 +1,8 @@
-import * as util from './modules/util.mjs'
-import SetsComponent from './modules/sets.mjs'
+import * as util from './modules/util.mjs';
+import SetsComponent from './modules/sets.mjs';
 import { HistoryComponent, addGameToHistory, getHistoryCards } from './modules/history.mjs';
-import { getSavedCards, setSavedCards, clearSavedCards } from './modules/savedCards.mjs'
+import { getSavedCards, setSavedCards, clearSavedCards } from './modules/savedCards.mjs';
+import * as cardUtil from './modules/cardUtil.mjs';
 
 const AppMain = {
     template: `
@@ -37,8 +38,6 @@ const AppMain = {
         }
     },
     async mounted() {
-        console.log(this.$route);
-
         if ('addhistory' in this.$route.query) {
             const cards = this.$route.query['addhistory'].split(',');
             this.incomingUrlAddToHistory(cards);
@@ -98,7 +97,7 @@ const AppMain = {
             const historyCards = getHistoryCards().flat();
             availibleCards = availibleCards.filter(card => !historyCards.includes(card.Name));
 
-            console.log(availibleCards.length);
+            console.log('availibleCards: ' + availibleCards.length);
 
             // Translate to dutch
             availibleCards.forEach(card => {
@@ -124,8 +123,10 @@ const AppMain = {
                 console.log('Generating random cards');
 
                 // Draw 10 random cards
-                this.randomizeFirstTenCards(this.availibleCards);
+                cardUtil.randomizeFirstTenCards(this.availibleCards);
                 cards = this.availibleCards.slice(0, 10);
+
+                //console.log(cards.filter(card => cardUtil.isAlchemy(card)).length);
 
                 this.sortCardsByDutchName(cards);
                 setSavedCards(cards);
@@ -134,23 +135,6 @@ const AppMain = {
             this.gameCards = cards;
             const names = cards.map(c => c.Name);
             this.availibleCards = this.availibleCards.filter(card => !names.includes(card.Name));
-        },
-
-        /** 
-         * Randomizes the first ten cards.
-         * See also: https://blog.codinghorror.com/the-danger-of-naivete/
-         */
-        randomizeFirstTenCards(availibleCards = []) {
-            let count = 10;
-            if (availibleCards.length < count) {
-                console.warn('Not enough cards to shuffle ' + count);
-                count = availibleCards.length;
-            }
-
-            for (let i = 0; i < count; i++) {
-                let rnd = i + Math.floor(Math.random() * (availibleCards.length - i));
-                [availibleCards[rnd], availibleCards[i]] = [availibleCards[i], availibleCards[rnd]];
-            }
         },
 
         replaceCard(gameCardIndex) {
@@ -208,7 +192,7 @@ const AppMain = {
                 if (a.DutchName < b.DutchName) return -1;
                 if (a.DutchName > b.DutchName) return 1;
                 return 0;
-            })
+            });
         },
 
         filterToChosenSets(cards) {
